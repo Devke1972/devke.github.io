@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Zendure SoC Correctie</title>
-</head>
-<body>
-
-<h1>Zendure 2400 AC SoC Correctie</h1>
-
-<p>Dit is mijn Home Assistant automatisering voor het beschermen en bijladen van de Zendure batterij.</p>
-
-<h2>YAML</h2>
-
-<pre>
 alias: Zendure 2400 AC SoC Correctie
 description: ""
 triggers:
@@ -33,7 +19,8 @@ triggers:
 conditions:
   - condition: template
     value_template: >
-      {{ states('sensor.zendure_laagste_soc') not in ['unknown','unavailable'] }}
+      {{ states('sensor.zendure_laagste_soc') not in ['unknown','unavailable']
+      }}
   - condition: template
     value_template: |
       {{
@@ -43,12 +30,111 @@ conditions:
       }}
 actions:
   - variables:
-      laagste_soc: "{{ states('sensor.zendure_laagste_soc') | float(100) }}"
-      min_soc: "{{ states('input_number.zendure_batterij_soc_grens_minimum') | float(0) }}"
-      doel_soc: "{{ states('input_number.zendure_batterij_soc_doel_grens') | float(0) }}"
-      laadvermogen: "{{ states('input_number.zendure_soc_correctie_laadvermogen') | float(0) }}"
+      laagste_soc: |
+        {{ states('sensor.zendure_laagste_soc') | float(100) }}
+      min_soc: >
+        {{ states('input_number.zendure_batterij_soc_grens_minimum') | float(0)
+        }}
+      doel_soc: |
+        {{ states('input_number.zendure_batterij_soc_doel_grens') | float(0) }}
+      laadvermogen: >
+        {{ states('input_number.zendure_soc_correctie_laadvermogen') | float(0)
+        }}
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: |
+              {{ laagste_soc < min_soc }}
+          - condition: state
+            entity_id: input_boolean.zendure_soc_protectie_lock
+            state: "off"
+          - condition: state
+            entity_id: sensor.dynamisch_duurste_periode
+            state: Nee
+        sequence:
+          - target:
+              entity_id: input_text.zendure_previous_mode_soc_protectie
+            data:
+              value: >
+                {% set v =
+                states.input_select.zendure_2400_ac_modus_selecteren.state %} {{
+                v if v not in ['unknown','unavailable', None] else 'onbekend' }}
+            action: input_text.set_value
+          - target:
+              entity_id: input_text.zendure_previous_synchroon_laden_soc_protectie
+            data:
+              value: >
+                {% set v = states.switch.synchroon_laden.state %} {% if v ==
+                'on' %}
+                  Aan
+                {% elif v == 'off' %}
+                  Uit
+                {% else %}
+                  Uit
+                {% endif %}
+            action: input_text.set_value
+          - target:
+              entity_id: input_select.zendure_2400_ac_modus_selecteren
+            data:
+              option: Handmatig
+            action: input_select.select_option
+          - if:
+              - condition: template
+                value_template: >
+                  {{ states('switch.synchroon_laden') not in
+                  ['unknown','unavailable'] }}
+            then:
+              - target:
+                  entity_id: switch.synchroon_laden
+                action: switch.turn_on
+          - target:
+              entity_id: input_number.zendure_2400_ac_handmatig_vermogen
+            data:
+              value: "{{ laadvermogen }}"
+            action: input_number.set_value
+          - target:
+              entity_id: input_boolean.zendure_soc_protectie_lock
+            action: input_boolean.turn_on
+          - target:
+              entity_id: counter.zendure_soc_bescherming_bijladen
+            action: counter.increment
+      - conditions:
+          - condition: state
+            entity_id: input_boolean.zendure_soc_protectie_lock
+            state: "on"
+          - condition: template
+            value_template: |
+              {{ laagste_soc < doel_soc }}
+        sequence:
+          - target:
+              entity_id: input_number.zendure_2400_ac_handmatig_vermogen
+            data:
+              value: "{{ laadvermogen }}"
+            action: input_number.set_value
+      - conditions:
+          - condition: template
+            value_template: |
+              {{ laagste_soc >= doel_soc }}
+          - condition: state
+            entity_id: input_boolean.zendure_soc_protectie_lock
+            state: "on"
+        sequence:
+          - target:
+              entity_id: input_select.zendure_2400_ac_modus_selecteren
+            data:
+              option: "{{ states('input_text.zendure_previous_mode_soc_protectie') }}"
+            action: input_select.select_option
+          - target:
+              entity_id: switch.synchroon_laden
+            action: >
+              {% if
+              states('input_text.zendure_previous_synchroon_laden_soc_protectie')
+              == 'Aan' %}
+                switch.turn_on
+              {% else %}
+                switch.turn_off
+              {% endif %}
+          - target:
+              entity_id: input_boolean.zendure_soc_protectie_lock
+            action: input_boolean.turn_off
 mode: single
-</pre>
-
-</body>
-</html>
