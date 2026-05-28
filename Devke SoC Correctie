@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zendure SoC Correctie</title>
+</head>
+<body>
 
+<h1>Zendure 2400 AC SoC Correctie</h1>
+
+<p>Dit is mijn Home Assistant automatisering voor het beschermen en bijladen van de Zendure batterij.</p>
+
+<h2>YAML</h2>
+
+<pre>
+alias: Zendure 2400 AC SoC Correctie
+description: ""
+triggers:
+  - minutes: /45
+    trigger: time_pattern
+  - trigger: template
+    value_template: |
+      {{ states('sensor.zendure_laagste_soc') | float(0)
+         < states('input_number.zendure_batterij_soc_grens_minimum') | float(0) }}
+  - trigger: template
+    value_template: |
+      {{ states('sensor.zendure_laagste_soc') | float(0)
+         >= states('input_number.zendure_batterij_soc_doel_grens') | float(0) }}
+  - entity_id:
+      - input_number.zendure_soc_correctie_laadvermogen
+      - input_number.zendure_batterij_soc_grens_minimum
+      - input_number.zendure_batterij_soc_doel_grens
+    trigger: state
+conditions:
+  - condition: template
+    value_template: >
+      {{ states('sensor.zendure_laagste_soc') not in ['unknown','unavailable'] }}
+  - condition: template
+    value_template: |
+      {{
+        states('input_number.zendure_batterij_soc_doel_grens') | float(0)
+        >=
+        states('input_number.zendure_batterij_soc_grens_minimum') | float(0)
+      }}
+actions:
+  - variables:
+      laagste_soc: "{{ states('sensor.zendure_laagste_soc') | float(100) }}"
+      min_soc: "{{ states('input_number.zendure_batterij_soc_grens_minimum') | float(0) }}"
+      doel_soc: "{{ states('input_number.zendure_batterij_soc_doel_grens') | float(0) }}"
+      laadvermogen: "{{ states('input_number.zendure_soc_correctie_laadvermogen') | float(0) }}"
+mode: single
+</pre>
+
+</body>
+</html>
