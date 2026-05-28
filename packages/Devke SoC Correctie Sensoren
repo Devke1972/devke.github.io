@@ -1,0 +1,121 @@
+# SoC Correctie Zendure Batterijen Devke
+input_number:
+  zendure_batterij_soc_grens_minimum:
+    name: Minimale SoC
+    min: 5
+    max: 100
+    step: 1
+    mode: box
+    unit_of_measurement: "%"
+
+  zendure_batterij_soc_doel_grens:
+    name: Doel SoC
+    min: 5
+    max: 100
+    step: 1
+    mode: box
+    unit_of_measurement: "%"
+
+  zendure_soc_correctie_laadvermogen:
+    name: Correctie Laadvermogen
+    min: 0
+    max: 2400
+    mode: box
+    unit_of_measurement: "W"
+
+input_boolean:
+  zendure_soc_protectie_lock:
+    name: SoC Protectie Lock
+
+input_text:
+  zendure_previous_mode_soc_protectie:
+    name: Batterij Modus voor Correctie
+    max: 100
+
+  zendure_previous_synchroon_laden_soc_protectie:
+    name: Modus Synchroon Laden voor Correctie
+    max: 10
+
+counter:
+  zendure_soc_bescherming_bijladen:
+    name: Interventies
+
+template:
+  - sensor:
+      - name: Zendure Laagste SoC
+        unique_id: zendure_laagste_soc
+        unit_of_measurement: "%"
+        icon: mdi:battery-low
+
+        state: >
+          {% set vals = states.sensor
+            | selectattr('entity_id','match','^sensor\.zendure_2400_ac_batterij_\d+_laadpercentage$')
+            | map(attribute='state')
+            | reject('in',['unknown','unavailable','none','None',''])
+            | select('is_number')
+            | map('float')
+            | list %}
+          {{ vals | min | int if vals else 'unknown' }}
+
+        attributes:
+          aantal_batterijen: >
+            {{ states.sensor
+               | selectattr('entity_id','match',
+                   '^sensor\.zendure_2400_ac_batterij_\d+_laadpercentage$')
+               | list | count }}
+
+          gebruikte_waardes: >
+            {% set vals = states.sensor
+              | selectattr('entity_id','match',
+                  '^sensor\.zendure_2400_ac_batterij_\d+_laadpercentage$')
+              | map(attribute='state')
+              | reject('in',['unknown','unavailable','none','None',''])
+              | select('is_number')
+              | map('float')
+              | list %}
+            {{ vals }}
+
+          gevonden_batterijen: >
+            {{ states.sensor
+               | selectattr('entity_id','match',
+                   '^sensor\.zendure_2400_ac_batterij_\d+_laadpercentage$')
+               | map(attribute='entity_id')
+               | list }}
+
+  - sensor:
+      - name: SoC Correctie Actief
+        unique_id: zendure_soc_correctie_actief
+        state: >
+          {% if is_state('input_boolean.zendure_soc_protectie_lock', 'on') %}
+            Ja
+          {% else %}
+            Nee
+          {% endif %}
+        icon: mdi:battery-sync
+
+  - trigger:
+      - platform: state
+        entity_id: sensor.zendure_soc_correctie_actief
+        from: "Nee"
+        to: "Ja"
+
+    sensor:
+      - name: Correctie Gestart
+        unique_id: zendure_soc_correctie_actief_sinds
+        state: >
+          {{ now().strftime('%d-%m-%Y %H:%M') }}
+        icon: mdi:clock-start
+
+
+  - trigger:
+      - platform: state
+        entity_id: sensor.zendure_soc_correctie_actief
+        from: "Ja"
+        to: "Nee"
+
+    sensor:
+      - name: Correctie Gestopt
+        unique_id: zendure_soc_correctie_gestopt_op
+        state: >
+          {{ now().strftime('%d-%m-%Y %H:%M') }}
+        icon: mdi:clock-end
