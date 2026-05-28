@@ -10,10 +10,10 @@ Wanneer de laagste SoC onder de ingestelde minimumgrens komt, activeert de autom
 
 In dat geval:
 
-wordt de huidige modus (bijvoorbeeld Handmatig) tijdelijk opgeslagen
-wordt de bestaande configuratie van het systeem bewaard
-schakelt de automatisering het systeem naar een gecontroleerde handmatige beschermingsmodus
-wordt een vast laadvermogen ingesteld om verdere daling van de SoC te voorkomen
+- wordt de huidige modus (bijvoorbeeld Handmatig) tijdelijk opgeslagen
+- wordt de bestaande configuratie van het systeem bewaard
+- schakelt de automatisering het systeem naar een gecontroleerde handmatige beschermingsmodus
+- wordt een vast laadvermogen ingesteld om verdere daling van de SoC te voorkomen
 
 Hierdoor kan de SoC-protectie ook ingrijpen wanneer je zelf bewust handmatig aan het sturen bent, omdat de prioriteit altijd veiligheid van de batterijstatus is.
 
@@ -21,9 +21,9 @@ Herstel van de situatie
 
 Zodra alle batterijen weer boven de doelgrens komen:
 
-wordt de oorspronkelijke modus hersteld (bijvoorbeeld terug naar Handmatig of Automatisch zoals opgeslagen)
-wordt de vorige synchronisatie- of laadstatus teruggezet
-en neemt het systeem weer normale aansturing over zonder verdere interventie
+- wordt de oorspronkelijke modus hersteld (bijvoorbeeld terug naar Handmatig of Automatisch zoals opgeslagen)
+- wordt de vorige synchronisatie- of laadstatus teruggezet -
+- en neemt het systeem weer normale aansturing over zonder verdere interventie
 
 Robuustheid
 
