@@ -35,3 +35,7 @@ wisselende aantallen batterijen
 dynamische SoC-waarden tijdens correcties of herkalibratie
 
 De laagste SoC wordt altijd opnieuw berekend zodra data weer beschikbaar is, waardoor de bescherming zichzelf automatisch herstelt zonder handmatige acties.
+
+Wat heb je nodig?
+
+Voor deze automatisering wordt gebruikgemaakt van de Gielz automatiseringstructuur in Home Assistant in combinatie met de Proxy-oplossing van Gast777. Deze setup maakt het mogelijk om meerdere Zendure batterijen dynamisch en schaalbaar aan te sturen. 
