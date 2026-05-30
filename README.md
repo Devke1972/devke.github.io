@@ -56,3 +56,59 @@ Beschrijving gebruikte sensoren:
 | `input_number.zendure_2400_ac_handmatig_vermogen`           | Input Number    | Handmatig laad-/ontlaadvermogen van de Zendure installatie. Onderdeel van de Gielz Zendure integratie.                                                                       |
 | `sensor.dynamisch_duurste_periode`                          | Sensor          | Geeft aan of het huidige tijdsblok behoort tot de duurste energieprijzen. Onderdeel van de Gielz Zendure integratie. Tijdens dure periodes wordt geen SoC-correctie gestart. |
 | `switch.synchroon_laden`                                    | Switch          | Zendure synchronisatie-optie waarmee alle batterijen gelijktijdig geladen kunnen worden tijdens een SoC-correctie.                                                           |
+
+Installatie
+
+Stap 1 – Installeer de Zendure integratie van Gielz
+
+Installeer eerst de Zendure Home Assistant integratie van Gielz:
+
+GitHub: https://github.com/Gielz1986/Zendure-HA-zenSDK
+
+Controleer of de volgende entiteiten beschikbaar zijn:
+
+input_select.zendure_2400_ac_modus_selecteren
+input_number.zendure_2400_ac_handmatig_vermogen
+sensor.dynamisch_duurste_periode
+De batterij SoC sensoren:
+sensor.zendure_2400_ac_batterij_1_laadpercentage
+sensor.zendure_2400_ac_batterij_2_laadpercentage
+enzovoort
+
+Stap 2 – Installeer de Zendure Proxy van Gast777
+
+Installeer vervolgens de Zendure Proxy oplossing van Gast777 inclusief Synchroon Laden:
+
+GitHub: https://github.com/gast777/Zendure-zenSDK-proxy
+
+Controleer of de schakelaar Synchroon Laden beschikbaar is:
+
+switch.synchroon_laden
+
+Deze wordt gebruikt om tijdens een SoC-correctie alle batterijen gelijktijdig te laden.
+
+Stap 3 – Voeg het package toe
+
+Plaats het bestand:
+
+packages/devke_soc_correctie.yaml in je Home Assistant package-directory.
+
+Controleer of packages zijn ingeschakeld in configuration.yaml:
+
+homeassistant:
+  packages: !include_dir_named packages
+
+Stap 4 – Voeg de automatisering toe
+
+Voeg de automatisering Devke SoC Correctie Zendure toe aan Home Assistant via de GUI van HA.
+
+Stap 5 – Herstart Home Assistant
+
+Stap 6 – Configureer de gewenste waarden
+
+Stel naar eigen wens in:
+
+Minimum SoC (input_number.zendure_batterij_soc_grens_minimum)
+Doel SoC (input_number.zendure_batterij_soc_doel_grens)
+Correctie laadvermogen (input_number.zendure_soc_correctie_laadvermogen)
+
