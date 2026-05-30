@@ -1,4 +1,4 @@
-# SoC Correctie Zendure Batterijen Devke
+# Devke SoC Correctie Sensoren
 input_number:
   zendure_batterij_soc_grens_minimum:
     name: Minimale SoC
