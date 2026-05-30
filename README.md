@@ -59,7 +59,7 @@ Beschrijving gebruikte sensoren:
 
 Installatie
 
-Stap 1 – Installeer de Zendure integratie van Gielz
+**Stap 1 – Installeer de Zendure integratie van Gielz**
 
 Installeer eerst de Zendure Home Assistant integratie van Gielz:
 
