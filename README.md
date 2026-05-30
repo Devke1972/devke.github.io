@@ -39,3 +39,21 @@ De laagste SoC wordt altijd opnieuw berekend zodra data weer beschikbaar is, waa
 Wat heb je nodig?
 
 Voor deze automatisering wordt gebruikgemaakt van de Gielz automatiseringstructuur in Home Assistant in combinatie met de Proxy-oplossing van Gast777. Deze setup maakt het mogelijk om meerdere Zendure batterijen dynamisch en schaalbaar aan te sturen. 
+
+Beschrijving gebruikte sensoren:
+
+| Entity                                                      | Type          | Doel                                                                                                                                          |
+| ----------------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sensor.zendure_laagste_soc`                                | Sensor        | Bepaalt automatisch de laagste SoC van alle beschikbare Zendure batterijen in de stapel. Wordt gebruikt door de SoC-correctie automatisering. |
+| `input_number.zendure_batterij_soc_grens_minimum`           | Input Number  | Minimale toegestane SoC. Wanneer een batterij hieronder komt wordt de SoC-correctie gestart.                                                  |
+| `input_number.zendure_batterij_soc_doel_grens`              | Input Number  | Doel-SoC waarnaar geladen wordt tijdens een SoC-correctie.                                                                                    |
+| `input_number.zendure_soc_correctie_laadvermogen`           | Input Number  | Laadvermogen (Watt) dat gebruikt wordt tijdens een SoC-correctie.                                                                             |
+| `input_boolean.zendure_soc_protectie_lock`                  | Input Boolean | Geeft aan dat een SoC-correctie actief is.                                                                                                    |
+| `input_text.zendure_previous_mode_soc_protectie`            | Input Text    | Slaat de actieve Zendure modus op voordat de SoC-correctie wordt gestart.                                                                     |
+| `input_text.zendure_previous_synchroon_laden_soc_protectie` | Input Text    | Slaat de status van Synchroon Laden op voordat de SoC-correctie wordt gestart.                                                                |
+| `counter.zendure_soc_bescherming_bijladen`                  | Counter       | Telt hoe vaak de SoC-bescherming een laadactie heeft gestart.                                                                                 |
+| `input_select.zendure_2400_ac_modus_selecteren`             | Input Select  | Zendure bedrijfsmodus (bijvoorbeeld Dynamisch, Handmatig, etc.).                                                                              |
+| `input_number.zendure_2400_ac_handmatig_vermogen`           | Input Number  | Handmatig ingesteld laad- of ontlaadvermogen van de Zendure omvormer.                                                                         |
+| `switch.synchroon_laden`                                    | Switch        | Schakelt synchroon laden van de batterijstapel in of uit.                                                                                     |
+| `sensor.dynamisch_duurste_periode`                          | Sensor        | Blokkeert SoC-correctie tijdens ingestelde dure stroomperiodes.                                                                               |
+
