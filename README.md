@@ -1,4 +1,4 @@
-<img src="images/DevkeSOC.png" width="1000">
+<img src="images/DevkeSOC.png" width="750">
 
 
 
