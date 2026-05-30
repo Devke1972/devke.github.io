@@ -38,7 +38,7 @@ De laagste SoC wordt altijd opnieuw berekend zodra data weer beschikbaar is, waa
 
 Wat heb je nodig?
 
-Voor deze automatisering wordt gebruikgemaakt van de Gielz automatiseringstructuur in Home Assistant in combinatie met de Proxy-oplossing van Gast777. Deze setup maakt het mogelijk om meerdere Zendure batterijen dynamisch en schaalbaar aan te sturen. 
+Voor deze automatisering wordt gebruikgemaakt van de Gielz automatiseringstructuur in Home Assistant in combinatie met de Proxy-oplossing van Gast777. Deze setup maakt het mogelijk om meerdere Zendure batterijen dynamisch en schaalbaar aan te sturen. Let op! Synchroon Laden optie (add-on bij Gast777) opnemen in de Proxy integratie.
 
 Beschrijving gebruikte sensoren:
 
