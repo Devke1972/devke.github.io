@@ -75,7 +75,7 @@ sensor.zendure_2400_ac_batterij_1_laadpercentage
 sensor.zendure_2400_ac_batterij_2_laadpercentage
 enzovoort
 
-Stap 2 – Installeer de Zendure Proxy van Gast777
+**Stap 2 – Installeer de Zendure Proxy van Gast777**
 
 Installeer vervolgens de Zendure Proxy oplossing van Gast777 inclusief Synchroon Laden:
 
@@ -87,7 +87,7 @@ switch.synchroon_laden
 
 Deze wordt gebruikt om tijdens een SoC-correctie alle batterijen gelijktijdig te laden.
 
-Stap 3 – Voeg het package toe
+**Stap 3 – Voeg het package toe**
 
 Plaats het bestand:
 
@@ -98,13 +98,13 @@ Controleer of packages zijn ingeschakeld in configuration.yaml:
 homeassistant:
   packages: !include_dir_named packages
 
-Stap 4 – Voeg de automatisering toe
+**Stap 4 – Voeg de automatisering toe**
 
 Voeg de automatisering Devke SoC Correctie Zendure toe aan Home Assistant via de GUI van HA.
 
-Stap 5 – Herstart Home Assistant
+**Stap 5 – Herstart Home Assistant**
 
-Stap 6 – Configureer de gewenste waarden
+**Stap 6 – Configureer de gewenste waarden**
 
 Stel naar eigen wens in:
 
