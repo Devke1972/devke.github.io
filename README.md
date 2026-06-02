@@ -110,7 +110,7 @@ Voeg de automatisering Devke SoC Correctie Zendure toe aan Home Assistant via de
 
 **Stap 6 – Installeer het bijbehorende dashboad**
 
-<img src="images/DevkeSOC.png" width="1000" height="400">
+<img src="images/Devke SoC Protection Zendure Dashboard.png" width="1000" height="400">
 
 **Stap 7 – Configureer de gewenste waarden**
 
