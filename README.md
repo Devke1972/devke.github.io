@@ -108,7 +108,11 @@ Voeg de automatisering Devke SoC Correctie Zendure toe aan Home Assistant via de
 
 **Stap 5 – Herstart Home Assistant**
 
-**Stap 6 – Configureer de gewenste waarden**
+**Stap 6 – Installeer het bijbehorende dashboad**
+
+
+
+**Stap 7 – Configureer de gewenste waarden**
 
 Stel naar eigen wens in:
 
