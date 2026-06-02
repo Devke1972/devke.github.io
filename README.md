@@ -25,7 +25,7 @@ Herstel van de situatie
 
 Zodra alle batterijen weer boven de doelgrens komen:
 
-- wordt de oorspronkelijke modus hersteld (bijvoorbeeld terug naar Handmatig of Automatisch zoals opgeslagen)
+- wordt de oorspronkelijke modus hersteld (bijvoorbeeld terug naar Handmatig, Nul op de meter, Dynamische Handel of een andere opgeslagen optie)
 - wordt de vorige synchronisatie- of laadstatus teruggezet -
 - en neemt het systeem weer normale aansturing over zonder verdere interventie
 
