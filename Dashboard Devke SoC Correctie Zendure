@@ -1,0 +1,62 @@
+views:
+  - title: Devke SoC Correctie
+    path: DevkeSoCCorrectie
+    icon: mdi:battery-sync
+
+    type: sections
+    max_columns: 4
+
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: SoC Protectie Info
+            heading_style: title
+
+          - type: entities
+            entities:
+              - entity: sensor.zendure_soc_correctie_actief
+              - entity: counter.zendure_soc_bescherming_bijladen
+              - entity: sensor.zendure_2400_ac_modus
+              - entity: sensor.zendure_soc_correctie_actief_sinds
+              - entity: sensor.zendure_soc_correctie_gestopt_op
+              - entity: sensor.zendure_2400_ac_batterij_1_laadpercentage
+              - entity: sensor.zendure_2400_ac_batterij_2_laadpercentage
+              - entity: sensor.zendure_2400_ac_batterij_3_laadpercentage
+              - entity: sensor.zendure_2400_ac_batterij_4_laadpercentage
+              - entity: sensor.zendure_2400_ac_batterij_5_laadpercentage
+              - entity: sensor.zendure_2400_ac_batterij_6_laadpercentage
+              - entity: sensor.zendure_laagste_soc
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: SoC Protectie Instellingen
+            heading_style: title
+
+          - type: entities
+            entities:
+              - entity: input_number.zendure_batterij_soc_grens_minimum
+              - entity: input_number.zendure_batterij_soc_doel_grens
+              - entity: input_number.zendure_soc_correctie_laadvermogen
+
+          - type: heading
+            heading: Instellingen Batterij Pre SoC Protectie
+            heading_style: title
+
+          - type: entities
+            entities:
+              - entity: input_text.zendure_previous_mode_soc_protectie
+              - entity: input_text.zendure_previous_synchroon_laden_soc_protectie
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: SoC Protectie Logging
+            heading_style: title
+
+          - type: logbook
+            hours_to_show: 48
+            target:
+              entity_id:
+                - sensor.zendure_soc_correctie_actief
