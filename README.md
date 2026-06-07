@@ -2,7 +2,7 @@
 
 
 
-**Devke SoC Correctie Zendure**
+**Devke SoC Correctie voor Zendure**
 
 De automatisering Devke SoC Correctie Zendure bewaakt de laagste laadstatus (SoC) van alle beschikbare Zendure AC-batterijen en grijpt in wanneer het systeem onder een veilige ondergrens dreigt te komen.
 
