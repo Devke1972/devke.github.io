@@ -4,7 +4,7 @@
 
 **Devke SoC Correctie voor Zendure**
 
-De automatisering Devke SoC Correctie Zendure bewaakt de laagste laadstatus (SoC) van alle beschikbare Zendure AC-batterijen en grijpt in wanneer het systeem onder een veilige ondergrens dreigt te komen.
+De automatisering Devke SoC Correctie bewaakt de laagste laadstatus (SoC) van alle beschikbare Zendure AC-batterijen en grijpt in wanneer het systeem onder een veilige ondergrens dreigt te komen.
 
 De basis van de logica is een dynamische sensor (Zendure Laagste SoC) die automatisch de laagste beschikbare SoC bepaalt uit alle herkende batterijen. Het aantal batterijen is daarbij volledig flexibel. Nieuwe batterijen worden automatisch meegenomen en ontbrekende of tijdelijk niet-beschikbare batterijen worden uitgesloten zonder invloed op de berekening.
 
